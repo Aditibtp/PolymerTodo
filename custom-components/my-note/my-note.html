@@ -1,0 +1,102 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/polymer/polymer-element.html">
+<link rel="import" href="/bower_components/polymer/lib/legacy/legacy-element-mixin.html">
+<link rel="import" href="/bower_components/paper-card/paper-card.html">
+<link rel="import" href="/bower_components/app-layout/app-layout.html">
+<link rel="import" href="/bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="/bower_components/iron-icons/editor-icons.html">
+<link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../note-edit/note-edit.html">
+
+<dom-module id="my-note">
+  <template>
+    <style>
+      #notes {
+        @apply(--layout-vertical);
+        @apply(--layout-wrap);
+        height: 150px;
+        width: 300px;
+        padding-bottom: 10px;
+      }
+      .card-content{
+        padding: 0 20px;
+        height: 100px;
+      }
+
+      paper-icon-button{
+        width: 50px;
+        height: 20px;
+        padding: 0 5px;
+        color: #000;
+      }
+    </style>
+    <div id="notes">
+      <paper-card>
+        <div class="card-content">
+          <template is="dom-if" if="[[!editState]]">
+            <h3 class="note-heading">[[task]]</h3>
+          </template>
+          <template is="dom-if" if="[[editState]]">
+            <note-edit task-desc={{task}}></note-edit>
+          </template>
+          <p class="tile-name"><span>[[todo.createdDate]]</span></p>
+        </div>
+        <div class="card-actions">
+          <paper-icon-button icon="editor:border-color" on-click="_setEditState"></paper-icon-button>
+          <paper-icon-button icon="check" on-click="_taskCompletedFunc"></paper-icon-button>
+          <paper-icon-button icon="delete"></paper-icon-button>
+        </div>
+      </paper-card>
+    </div>
+
+  </template>
+  <script>
+    class MyNote extends Polymer.Element {
+
+      static get is() {
+        return 'my-note';
+      }
+
+      static get properties() {
+        return {
+          todoStatus: {
+            type: Boolean,
+            notify: true
+          },
+
+          editState: {
+            type: Boolean,
+            value: false
+          },
+
+          task:{
+            type: String
+          }
+        }
+      }
+
+      ready(){
+        super.ready();
+        this.task = this.todo.task;
+      }
+
+      _taskCompletedFunc(){
+        // this.todoStatus = true;
+        // this.todo.isCompleted = true;
+        this.editState = false;
+        console.log(this.todo.isCompleted);
+      }
+
+      _setEditState(){
+        this.editState = true;
+      }
+
+      _computeTask(){
+        return this.todo.task;
+      }
+
+    }
+    customElements.define(MyNote.is, MyNote);
+  </script>
+
+</dom-module>

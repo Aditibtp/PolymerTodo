@@ -1,0 +1,38 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/polymer/polymer-element.html">
+<link rel="import" href="/bower_components/polymer/lib/legacy/legacy-element-mixin.html">
+<link rel="import" href="/bower_components/paper-card/paper-card.html">
+<link rel="import" href="/bower_components/app-layout/app-layout.html">
+<link rel="import" href="/bower_components/paper-input/paper-input.html">
+
+<dom-module id="note-edit">
+  <template>
+    <style>
+
+    </style>
+    <div id="note-edit">
+      <paper-input value={{taskDesc}}></paper-input>
+    </div>
+
+  </template>
+  <script>
+    class NoteEdit extends Polymer.Element {
+
+      static get is() {
+        return 'note-edit';
+      }
+
+      static get properties() {
+        return {
+          taskDesc: {
+            type: String,
+            notify: true
+          }
+        }
+      }
+
+    }
+    customElements.define(NoteEdit.is, NoteEdit);
+  </script>
+
+</dom-module>

@@ -1,0 +1,64 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/polymer/polymer-element.html">
+<link rel="import" href="/bower_components/polymer/lib/legacy/legacy-element-mixin.html">
+<link rel="import" href="../my-note/my-note.html">
+
+<dom-module id="my-custom-notes">
+  <template>
+    <style>
+      :host{
+        display: block;
+      }
+    </style>
+    <template is="dom-repeat" items="[[todoData]]" as="todo">
+        <my-note todo=[[todo]]></my-note>
+    </template>
+  </template>
+  <script>
+    class MyCustomNotes extends Polymer.Element {
+
+      static get is() {
+        return 'my-custom-notes';
+      }
+
+      static get properties() {
+        return {
+
+          todoData: {
+            type: Array,
+            value: ()=>{
+              return [{
+                      	task: "Create react app",
+                        createdDate: "13 May 2017",
+                        status: 0,
+                    		isCompleted: false
+                    	},
+                    	{
+                    		task: "Eat food",
+                        createdDate: "14 May 2017",
+                        status: 100,
+                    		isCompleted: true
+                    	},
+                    	{
+                    		task: "Read Jane Eyre",
+                        createdDate: "15 May 2017",
+                        status: 50,
+                    		isCompleted: false
+                    	},
+                    	{
+                    		task: "Sleep",
+                        createdDate: "16 May 2017",
+                        status: 100,
+                    		isCompleted: true
+                    	}]
+            },
+            notify: true
+          }
+        }
+      }
+
+    }
+    customElements.define(MyCustomNotes.is, MyCustomNotes);
+  </script>
+
+</dom-module>
